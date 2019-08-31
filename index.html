@@ -13,38 +13,39 @@
 </head>
 
 <body>
-<p>Original code from http://learnwebgl.brown37.net/</p>
+  <!-- <p>Original code from http://learnwebgl.brown37.net/</p>-->
 
-<!--The canvas window for rendering 3D graphics -->
-<canvas id="W1_canvas" class="canvas3D">
-  Please use a browser that supports "canvas"
-</canvas>
-<br>
+  <!--The canvas window for rendering 3D graphics -->
+  <canvas id="W1_canvas" class="canvas3D">
+    Please use a browser that supports "canvas"
+  </canvas>
+  <br>
 
-<!-- An HTML control element that can be used to modify the rendering behavior -->
+  <!-- An HTML control element that can be used to modify the rendering behavior
 <input type="checkbox" id="my_pause" checked> Animate<br>
+ -->
+  <!-- Load the JavaScript libraries and data files for the WebGL rendering -->
+  <script src="./lib/learn_webgl.js"></script>
+  <script src="./lib/learn_webgl_console_messages.js"></script>
+  <script src="./lib/learn_webgl_point4.js"></script>
+  <script src="./lib/learn_webgl_vector3.js"></script>
+  <script src="./lib/learn_webgl_matrix.js"></script>
+  <script src="./lib/learn_webgl_model_01.js"></script>
+  <script src="./lib/learn_webgl_vob_model_01.js"></script>
+  <script src="./object_examples_render_01.js"></script>
+  <script src="./object_examples_events_01.js"></script>
 
-<!-- Load the JavaScript libraries and data files for the WebGL rendering -->
-<script src="./lib/learn_webgl.js"></script>
-<script src="./lib/learn_webgl_console_messages.js"></script>
-<script src="./lib/learn_webgl_point4.js"></script>
-<script src="./lib/learn_webgl_vector3.js"></script>
-<script src="./lib/learn_webgl_matrix.js"></script>
-<script src="./lib/learn_webgl_model_01.js"></script>
-<script src="./lib/learn_webgl_vob_model_01.js"></script>
-<script src="./object_examples_render_01.js"></script>
-<script src="./object_examples_events_01.js"></script>
-
-<!--
+  <!--
   Create an instance of the learn_webgl class, and start the WebGL program.
   We do this here to pass the canvas ID into the javascript code.
 -->
-<script>
-  var models = ["./lib/models/model_cone4.obj"];
-  var shaders = ["./lib/shaders/shader05.vert", "./lib/shaders/shader05.frag"];
-  var controls = ["my_pause"];
-  var my_program = new Learn_webgl("W1_canvas", "Scene_object_example_render", models, shaders, controls);
-</script>
+  <script>
+    var models = ["./lib/models/model_cone4.obj"];
+    var shaders = ["./lib/shaders/shader05.vert", "./lib/shaders/shader05.frag"];
+    var controls = ["my_pause"];
+    var my_program = new Learn_webgl("W1_canvas", "Scene_object_example_render", models, shaders, controls);
+  </script>
 
 </body>
+
 </html>

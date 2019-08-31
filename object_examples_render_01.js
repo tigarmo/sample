@@ -44,7 +44,7 @@
 // model definition and particular WebGL shaders.
 //-------------------------------------------------------------------------
 var Scene_object_example_render = function (learn, vshaders_dictionary,
-                                fshaders_dictionary, models) {
+  fshaders_dictionary, models) {
 
   var self = this; // Store a local reference to the new object.
 
@@ -55,12 +55,15 @@ var Scene_object_example_render = function (learn, vshaders_dictionary,
 
     // Clear the entire canvas window background with the clear color
     // out.display_info("Clearing the screen");
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     // Build individual transforms
     matrix.setIdentity(transform);
     matrix.rotate(rotate_x_matrix, self.angle_x, 1, 0, 0);
     matrix.rotate(rotate_y_matrix, self.angle_y, 0, 1, 0);
+
+    gl.uniform1f(time_location, self.time);
 
     // Combine the transforms into a single transformation
     matrix.multiplySeries(transform, transform, rotate_x_matrix, rotate_y_matrix);
@@ -90,9 +93,9 @@ var Scene_object_example_render = function (learn, vshaders_dictionary,
 
     // Remove all event handlers
     var id = '#' + canvas_id;
-    $( id ).unbind( "mousedown", events.mouse_drag_started );
-    $( id ).unbind( "mouseup", events.mouse_drag_ended );
-    $( id ).unbind( "mousemove", events.mouse_dragged );
+    $(id).unbind("mousedown", events.mouse_drag_started);
+    $(id).unbind("mouseup", events.mouse_drag_ended);
+    $(id).unbind("mousemove", events.mouse_dragged);
     events.removeAllEventHandlers();
 
     // Disable any animation
@@ -113,6 +116,7 @@ var Scene_object_example_render = function (learn, vshaders_dictionary,
   var matrix = new Learn_webgl_matrix();
   var transform = matrix.create();
   var transform_location = 0;
+  var time_location = 0
   var rotate_x_matrix = matrix.create();
   var rotate_y_matrix = matrix.create();
 
@@ -120,6 +124,7 @@ var Scene_object_example_render = function (learn, vshaders_dictionary,
   self.canvas = null;
   self.angle_x = 0.0;
   self.angle_y = 0.0;
+  self.time = 0.0;
   self.animate_active = true;
 
   // Get the rendering context for the canvas
@@ -140,6 +145,10 @@ var Scene_object_example_render = function (learn, vshaders_dictionary,
 
   // Remember the location of the transformation variable in the shader program
   transform_location = gl.getUniformLocation(program, "u_Transform");
+  time_location = gl.getUniformLocation(program, "time");
+  var aspect_location = gl.getUniformLocation(program, "aspect");
+
+  gl.uniform1f(aspect_location, self.canvas.height / self.canvas.width);
 
   // Create Vertex Object Buffers for the models
   var j, key_list;
@@ -154,9 +163,9 @@ var Scene_object_example_render = function (learn, vshaders_dictionary,
   events.animate();
 
   var id = '#' + canvas_id;
-  $( id ).mousedown( events.mouse_drag_started );
-  $( id ).mouseup( events.mouse_drag_ended );
-  $( id ).mousemove( events.mouse_dragged );
+  $(id).mousedown(events.mouse_drag_started);
+  $(id).mouseup(events.mouse_drag_ended);
+  $(id).mousemove(events.mouse_dragged);
 };
 
 

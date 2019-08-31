@@ -35,6 +35,7 @@
 function Learn_webgl_events(scene, control_id_list) {
 
   var self = this; // Store a local reference to the new object.
+  self.start_time = Date.now();
 
   //-----------------------------------------------------------------------
   self.mouse_drag_started = function (event) {
@@ -109,7 +110,7 @@ function Learn_webgl_events(scene, control_id_list) {
     if (control) {
       switch (control.attr('id')) {
         case "my_pause":
-          if (control.is(":checked"))  {
+          if (control.is(":checked")) {
             animate_is_on = true;
             scene.animate_active = true;
             self.animate();
@@ -134,6 +135,7 @@ function Learn_webgl_events(scene, control_id_list) {
       if (elapsed_time >= frame_rate) {
         scene.angle_x -= 0.5;
         scene.angle_y += 1;
+        scene.time = (now - self.start_time) / 500;
         scene.render();
         previous_time = now;
       }
@@ -173,7 +175,7 @@ function Learn_webgl_events(scene, control_id_list) {
   for (j = 0; j < control_id_list.length; j += 1) {
     var control = $('#' + control_id_list);
     if (control) {
-      control.click( self.html_control_event );
+      control.click(self.html_control_event);
     }
   }
 }
